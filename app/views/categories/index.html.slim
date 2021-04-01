@@ -1,0 +1,16 @@
+h1 カテゴリの一覧
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Category.human_attribute_name(:name)
+      th= Category.human_attribute_name(:created_at)
+      th= Category.human_attribute_name(:updated_at)
+      th
+  tboby
+    - @categories.each do |category|
+      tr
+        td= category.name
+        td= category.created_at
+        td= category.updated_at
