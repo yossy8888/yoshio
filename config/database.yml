@@ -83,3 +83,4 @@ production:
   database: taskleaf_production
   username: taskleaf
   password: <%= ENV['TASKLEAF_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
