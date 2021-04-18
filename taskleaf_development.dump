@@ -1,0 +1,296 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.categories (
+    id bigint NOT NULL,
+    name character varying(10),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
+);
+
+
+--
+-- Name: tasks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tasks (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tasks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    email character varying NOT NULL,
+    password_digest character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    admin boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2021-03-28 17:03:37.453001	2021-03-28 17:03:37.453001
+\.
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.categories (id, name, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.schema_migrations (version) FROM stdin;
+20210328074653
+20210328165131
+20210331163344
+20210403064007
+20210403073307
+20210403095726
+\.
+
+
+--
+-- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.tasks (id, name, description, created_at, updated_at, user_id) FROM stdin;
+8	こんにちは	こんにちはだよ	2021-04-03 11:42:18.676011	2021-04-03 11:42:18.676011	7
+7	testだよ	google最高！\r\nhttps://www.google.com/	2021-04-03 11:12:05.119108	2021-04-04 03:05:14.104835	6
+10	名前なし		2021-04-05 18:21:52.817603	2021-04-05 18:21:52.817603	6
+12	名前なし		2021-04-05 19:23:40.304579	2021-04-05 19:23:40.304579	1
+13	testだよ	googleだよ\r\nhttps://www.google.com/	2021-04-06 13:44:34.001865	2021-04-06 13:44:34.001865	1
+14	aiueo		2021-04-07 17:43:35.551345	2021-04-07 17:43:35.551345	1
+15	確認画面の実装	あいうえお	2021-04-14 15:25:21.44908	2021-04-14 15:25:21.44908	1
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.users (id, name, email, password_digest, created_at, updated_at, admin) FROM stdin;
+1	admin	admin@example.com	$2a$12$hCNev9uM87eQzqzACV452Ob2.2jQhGwyT/1fIP/hDWrhmr1610Tbu	2021-04-05 19:22:52.892158	2021-04-05 19:22:52.892158	t
+\.
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 1, false);
+
+
+--
+-- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.tasks_id_seq', 15, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_tasks_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tasks_on_user_id ON public.tasks USING btree (user_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
