@@ -70,3 +70,4 @@ gem 'rails_autolink'
 gem 'ransack'
 gem 'sqlite3', group: [:development, :test]
 #gem 'pg', group: :production
+gem 'kaminari'
