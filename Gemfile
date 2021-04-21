@@ -71,3 +71,4 @@ gem 'ransack'
 gem 'sqlite3', group: [:development, :test]
 #gem 'pg', group: :production
 gem 'kaminari'
+gem 'sidekiq', '~> 5.0'
