@@ -1,0 +1,30 @@
+FROM ruby:2.5.1
+
+ENV APP_ROOT /usr/src/app
+ENV LANG C.UTF-8
+ENV LANGUAGE=en_US:
+
+WORKDIR $APP_ROOT
+
+# update apt-get
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y nodejs \
+                       npm \
+                       vim \
+                       postgresql-client \
+                       default-mysql-client \
+                       build-essential \
+                       --no-install-recommends && \
+                       rm -rf /var/lib/apt/lists/*
+
+RUN gem install git-pr-release
+
+RUN curl -L https://git.io/misspell | sh && mv ./bin/misspell /usr/local/bin/
+
+ENV PS1="\[\e[31m\][\[\e[m\]\[\e[38;5;172m\]\u\[\e[m\]@\[\e[38;5;153m\]\h\[\e[m\] \[\e[38;5;214m\]\w\[\e[m\]\[\e[31m\]]\[\e[m\]\\$ "
+
+RUN npm install -g n
+RUN n 12.22.1
+RUN npm install -g yarn
+
